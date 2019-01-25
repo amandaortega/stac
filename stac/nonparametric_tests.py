@@ -428,12 +428,12 @@ def finner_test(ranks, control=None):
     values = ranks.values()
     keys = ranks.keys()
     if not control :
-        control_i = values.index(min(values))
+        control_i = list(values).index(min(values))
     else:
         control_i = keys.index(control)
 
-    comparisons = [keys[control_i] + " vs " + keys[i] for i in range(k) if i != control_i]
-    z_values = [abs(values[control_i] - values[i]) for i in range(k) if i != control_i]
+    comparisons = [list(keys)[control_i] + " vs " + list(keys)[i] for i in range(k) if i != control_i]
+    z_values = [abs(list(values)[control_i] - list(values)[i]) for i in range(k) if i != control_i]
     p_values = [2*(1-st.norm.cdf(abs(z))) for z in z_values]
     # Sort values by p_value so that p_0 < p_1
     p_values, z_values, comparisons = map(list, zip(*sorted(zip(p_values, z_values, comparisons), key=lambda t: t[0])))
@@ -595,8 +595,8 @@ def finner_multitest(ranks):
     keys = ranks.keys()
     versus = list(it.combinations(range(k), 2))
 
-    comparisons = [keys[vs[0]] + " vs " + keys[vs[1]] for vs in versus]
-    z_values = [abs(values[vs[0]] - values[vs[1]]) for vs in versus]
+    comparisons = [list(keys)[vs[0]] + " vs " + list(keys)[vs[1]] for vs in versus]
+    z_values = [abs(list(values)[vs[0]] - list(values)[vs[1]]) for vs in versus]
     p_values = [2*(1-st.norm.cdf(abs(z))) for z in z_values]
     # Sort values by p_value so that p_0 < p_1
     p_values, z_values, comparisons = map(list, zip(*sorted(zip(p_values, z_values, comparisons), key=lambda t: t[0])))
