@@ -49,7 +49,7 @@ def binomial_sign_test(*args):
     
         
 
-def friedman_test(*args):
+def friedman_test(data):
     """
         Performs a Friedman ranking test.
         Tests the hypothesis that in a set of k dependent samples groups (where k >= 2) at least two of the groups represent populations with different median values.
@@ -75,14 +75,14 @@ def friedman_test(*args):
         M. Friedman, The use of ranks to avoid the assumption of normality implicit in the analysis of variance, Journal of the American Statistical Association 32 (1937) 674–701.
         D.J. Sheskin, Handbook of parametric and nonparametric statistical procedures. crc Press, 2003, Test 25: The Friedman Two-Way Analysis of Variance by Ranks
     """
-    k = len(args)
+    k = data.shape[0]
     if k < 2: raise ValueError('Less than 2 levels')
-    n = len(args[0])
-    if len(set([len(v) for v in args])) != 1: raise ValueError('Unequal number of samples')
+    n = data.shape[1]
+    if len(set([len(v) for v in data])) != 1: raise ValueError('Unequal number of samples')
 
     rankings = []
     for i in range(n):
-        row = [col[i] for col in args]
+        row = [col[i] for col in data]
         row_sort = sorted(row)
         rankings.append([row_sort.index(v) + 1 + (row_sort.count(v)-1)/2. for v in row])
 

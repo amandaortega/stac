@@ -2,6 +2,7 @@ from nonparametric_tests import friedman_test, finner_multitest
 import csv
 import numpy as np
 from collections import OrderedDict
+import numpy as np
 
 def sort_algorithms(database_path, alpha):
     database = []
@@ -13,7 +14,7 @@ def sort_algorithms(database_path, alpha):
 
     database = np.asarray(database)
 
-    [F_value, p_value, rankings, pivots] = friedman_test(database[1:, 1], database[1:, 2], database[1:, 3], database[1:, 4], database[1:, 5], database[1:, 6], database[1:, 7], database[1:, 8], database[1:, 9], database[1:, 10], database[1:, 11], database[1:, 12])
+    [F_value, p_value, rankings, pivots] = friedman_test(np.transpose(database[1:, 1:]))
 
     dic_rankings = {}
     dic_pivots = {}
