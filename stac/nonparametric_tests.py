@@ -82,7 +82,7 @@ def friedman_test(data):
 
     rankings = []
     for i in range(n):
-        row = [col[i] for col in data]
+        row = [float(col[i]) for col in data]
         row_sort = sorted(row)
         rankings.append([row_sort.index(v) + 1 + (row_sort.count(v)-1)/2. for v in row])
 
